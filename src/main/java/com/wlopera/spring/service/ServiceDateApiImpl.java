@@ -1,6 +1,7 @@
 package com.wlopera.spring.service;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import com.wlopera.spring.domain.AbstractInit;
 import com.wlopera.spring.wrapper.AbstractWrapper;
@@ -23,9 +25,9 @@ public class ServiceDateApiImpl implements ServiceDateApi {
 		LocalDate date = LocalDate.of(year, month, day);
 
 		Locale l = new Locale("es", "ES");
-		System.out.println(date + " ==> " + date.getDayOfWeek().getDisplayName(TextStyle.FULL, l).toUpperCase());
+		System.out.println(date + " ==> " + date.getDayOfWeek().getDisplayName(TextStyle.FULL, l));
 
-		return date.getDayOfWeek().getDisplayName(TextStyle.FULL, l).toUpperCase();
+		return StringUtils.capitalize(date.getDayOfWeek().getDisplayName(TextStyle.FULL, l));
 	}
 
 	@Override
@@ -34,9 +36,9 @@ public class ServiceDateApiImpl implements ServiceDateApi {
 		List<AbstractInit> list = new ArrayList<>();
 		AbstractInit init = null;
 
-		for (int i = 0; i < 19; i++) {
+		for (int i = 20; i > 9; i--) {
 			init = new AbstractInit();
-			init.setKey(i + 1);
+			init.setKey(i);
 			init.setValue(String.valueOf(2000 + i));
 			list.add(init);
 		}
@@ -50,8 +52,8 @@ public class ServiceDateApiImpl implements ServiceDateApi {
 		List<AbstractInit> list = new ArrayList<>();
 		AbstractInit init = null;
 
-		List<String> listAux = Arrays.asList("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO",
-				"SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+		List<String> listAux = Arrays.asList("Enero", "Febreo", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+				"Septiembre", "Octubre", "Noviembre", "Diciembre");
 		int key = 1;
 		for (String value : listAux) {
 			init = new AbstractInit();
@@ -72,5 +74,27 @@ public class ServiceDateApiImpl implements ServiceDateApi {
 	// Para probar
 	public static void main(String[] arg) {
 		new ServiceDateApiImpl().getNameDayByDate(25, 11, 2018);
+	}
+
+	@Override
+	public AbstractWrapper getDaysByMonth(int month, int year) {
+
+		System.out.println("ServiceDateApiImpl -> getNameDayByDate");
+
+		YearMonth date = YearMonth.of(year, month);
+
+		AbstractWrapper wrapper = new AbstractWrapper();
+		List<AbstractInit> list = new ArrayList<>();
+		AbstractInit init = null;
+		
+		for (int i=1; i<date.lengthOfMonth()+1; i++) {
+			init = new AbstractInit();
+			init.setKey(i);
+			init.setValue(String.valueOf(i));
+			list.add(init);
+		}
+		wrapper.setList(list);
+		
+		return wrapper;
 	}
 }

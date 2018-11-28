@@ -2,6 +2,7 @@ package com.wlopera.spring.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wlopera.spring.domain.AbstractInit;
 import com.wlopera.spring.service.ServiceDateApi;
 import com.wlopera.spring.wrapper.AbstractWrapper;
 import com.wlopera.spring.wrapper.Wrapper;
@@ -38,7 +40,11 @@ public class DateController {
 	@ResponseBody
 	public AbstractWrapper getDates() {
 		System.out.println("DateController -> getDates");
-		return service.getDates();
+		
+		AbstractWrapper wrapper = service.getDates();
+		addSelectIntoList(wrapper.getList());
+		
+		return wrapper;
 	}
 
 	/**
@@ -50,7 +56,11 @@ public class DateController {
 	@ResponseBody
 	public AbstractWrapper getMonths() {
 		System.out.println("DateController -> getMonths");
-		return service.getMonths();
+
+		AbstractWrapper wrapper = service.getMonths();
+		addSelectIntoList(wrapper.getList());
+		
+		return wrapper;
 	}
 
 	/**
@@ -66,7 +76,11 @@ public class DateController {
 		System.out.println("DateController -> year: " + year);
 		System.out.println("DateController -> month: " + month);
 
-		return service.getDays(Integer.valueOf(year), Integer.valueOf(month));
+		AbstractWrapper wrapper = service.getDaysByMonth(Integer.valueOf(month), Integer.valueOf(year));
+		addSelectIntoList(wrapper.getList());
+		
+		return wrapper;
+		
 	}
 
 	// http://localhost:8585/date/nameDay
@@ -112,4 +126,14 @@ public class DateController {
 		return new ModelAndView("result").addObject("result", input);
 	}
 
+	/**
+	 * Agregar resgitro selecione (key=-1)
+	 * @param list
+	 */
+	private void addSelectIntoList(List<AbstractInit> list) {
+		AbstractInit init = new AbstractInit();
+		init.setKey(-1);
+		init.setValue("Seleccionar");
+		list.add(0, init);
+	}
 }
