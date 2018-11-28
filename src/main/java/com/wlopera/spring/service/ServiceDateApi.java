@@ -7,7 +7,7 @@ public interface ServiceDateApi {
 	/**
 	 * Permite obtener una lista de años
 	 * 
-	 * @author Willian Lopera
+	 * @author William Lopera
 	 * @return 
 	 */
 	AbstractWrapper getDates();
@@ -15,7 +15,7 @@ public interface ServiceDateApi {
 	/**
 	 * Permite obtener la lista de meses del annio
 	 * 
-	 * @author Willian Lopera
+	 * @author William Lopera
 	 * @return 
 	 */
 	AbstractWrapper getMonths();
@@ -23,17 +23,25 @@ public interface ServiceDateApi {
 	/**
 	 * Permite obtener una lista de los dias del mes/annio 
 	 * 
-	 * @author Willian Lopera
+	 * @author William Lopera
 	 * @return 
 	 */
 	AbstractWrapper getDays(int year, int month);
-	
+
+	/**
+	 * Permite obtener dias de un mes 
+	 * 
+	 * @author William Lopera
+	 * @return 
+	 */
+	AbstractWrapper getDaysByMonth(int month, int year);
+
 	/**
 	 * Permite obtener una lista de años
 	 * 
-	 * @author Willian Lopera
+	 * @author William Lopera
 	 * @return 
 	 */
 	String getNameDayByDate(int day, int month, int year);
-
+	
 }
