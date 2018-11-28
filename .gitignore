@@ -1,0 +1,8 @@
+# Eclipse IDE: Archivos de configuracion
+.classpath
+.project
+.gradle
+.settings
+bin/*
+build/*
+gradle/*
