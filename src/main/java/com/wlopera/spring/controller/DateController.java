@@ -40,10 +40,10 @@ public class DateController {
 	@ResponseBody
 	public AbstractWrapper getDates() {
 		System.out.println("DateController -> getDates");
-		
+
 		AbstractWrapper wrapper = service.getDates();
 		addSelectIntoList(wrapper.getList());
-		
+
 		return wrapper;
 	}
 
@@ -59,7 +59,7 @@ public class DateController {
 
 		AbstractWrapper wrapper = service.getMonths();
 		addSelectIntoList(wrapper.getList());
-		
+
 		return wrapper;
 	}
 
@@ -78,12 +78,12 @@ public class DateController {
 
 		AbstractWrapper wrapper = service.getDaysByMonth(Integer.valueOf(month), Integer.valueOf(year));
 		addSelectIntoList(wrapper.getList());
-		
+
 		return wrapper;
-		
+
 	}
 
-	// http://localhost:8585/date/nameDay
+	// http://localhost:8585/date/nameDay/1/12/2018
 	@RequestMapping(value = "/date/nameDay/{day}/{month}/{year}", method = RequestMethod.GET)
 	@ResponseBody
 	public Wrapper getNameDayByDate(@PathVariable("day") String day, @PathVariable("month") String month,
@@ -95,6 +95,22 @@ public class DateController {
 
 		wrapper.setNameDay(
 				service.getNameDayByDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year)));
+
+		return wrapper;
+
+	}
+
+	// http://localhost:8585/date/daysBetweenDates/2018-12-01/2018-12-21
+	@RequestMapping(value = "/date/daysBetweenDates/{startDate}/{endDate}", method = RequestMethod.GET)
+	@ResponseBody
+	public Wrapper daysBetweenDates(@PathVariable("startDate") String startDate,
+			@PathVariable("endDate") String endDate) {
+
+		System.out.println("DateController -> daysBetweenDates");
+
+		Wrapper wrapper = new Wrapper();
+
+		wrapper.setNameDay(String.valueOf(service.getDaysBetWeenDates(startDate, endDate)));
 
 		return wrapper;
 
@@ -128,6 +144,7 @@ public class DateController {
 
 	/**
 	 * Agregar resgitro selecione (key=-1)
+	 * 
 	 * @param list
 	 */
 	private void addSelectIntoList(List<AbstractInit> list) {

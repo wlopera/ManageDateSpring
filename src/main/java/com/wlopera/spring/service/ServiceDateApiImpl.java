@@ -3,6 +3,7 @@ package com.wlopera.spring.service;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,7 +74,9 @@ public class ServiceDateApiImpl implements ServiceDateApi {
 
 	// Para probar
 	public static void main(String[] arg) {
-		new ServiceDateApiImpl().getNameDayByDate(25, 11, 2018);
+		// new ServiceDateApiImpl().getNameDayByDate(25, 11, 2018);
+		System.out.println(new ServiceDateApiImpl().getDaysBetWeenDates("2018-01-01", "2019-01-01"));
+
 	}
 
 	@Override
@@ -86,15 +89,24 @@ public class ServiceDateApiImpl implements ServiceDateApi {
 		AbstractWrapper wrapper = new AbstractWrapper();
 		List<AbstractInit> list = new ArrayList<>();
 		AbstractInit init = null;
-		
-		for (int i=1; i<date.lengthOfMonth()+1; i++) {
+
+		for (int i = 1; i < date.lengthOfMonth() + 1; i++) {
 			init = new AbstractInit();
 			init.setKey(i);
 			init.setValue(String.valueOf(i));
 			list.add(init);
 		}
 		wrapper.setList(list);
-		
+
 		return wrapper;
+	}
+
+	@Override
+	public Long getDaysBetWeenDates(String startDate, String endDate) {
+
+		LocalDate initDate = LocalDate.parse(startDate);
+		LocalDate finishDate = LocalDate.parse(endDate);
+
+		return ChronoUnit.DAYS.between(initDate, finishDate);
 	}
 }

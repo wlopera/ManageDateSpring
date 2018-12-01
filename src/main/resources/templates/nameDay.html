@@ -1,0 +1,20 @@
+<h3>Combos anidados</h3>
+<div class="col-sm-12">
+	<div class="col-sm-3">
+		A&ntilde;o: <br> <select ng-options="year.value for year in years"
+			ng-model="year" ng-change="initData()"></select>
+	</div>
+	<div class="col-sm-3">
+		Mes: <br> <select ng-options="month.value for month in months"
+			ng-model="month" ng-change="getDays()" ng-show="showMonth"></select>
+	</div>
+	<div class="col-sm-3">
+		D&iacute;a: <br> <select ng-options="day.value for day in days"
+			ng-model="day" ng-show="showDay" ng-change="getNameDayByDate()"></select>
+	</div>
+
+	<div class="col-sm-3">
+		D&iacute;a de la semana: <br> {{nameDay}}
+	</div>
+
+</div>

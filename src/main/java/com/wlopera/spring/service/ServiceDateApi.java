@@ -44,4 +44,12 @@ public interface ServiceDateApi {
 	 */
 	String getNameDayByDate(int day, int month, int year);
 	
+	/**
+	 * Permite calcular la cantidad de dias entre dos fechas
+	 * 
+	 * @author William Lopera
+	 * @return 
+	 */
+	Long getDaysBetWeenDates(String startDate, String endDate);
+	
 }

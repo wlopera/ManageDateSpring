@@ -13,6 +13,10 @@ MyApp.controller("MyController",["$scope", "service", function($scope, service){
 	$scope.showDay = false;
 	$scope.nameDay = "";
 	
+	$scope.startDate = "";   		// Fecha inicial
+	$scope.endDate = "";   			// Fecha final
+	$scope.daysBetweenDates = "";   // Dias entre fechas
+	
 	// Modelo de datos
 	$scope.years = {};	 // annios
 	$scope.months = {};	 // meses
@@ -82,6 +86,16 @@ MyApp.controller("MyController",["$scope", "service", function($scope, service){
 		} else {
 			$scope.nameDay = "";
 		}
+	};
+	
+	// Calcular los dias  entre dos fechas
+	$scope.getdaysBetweenDates = function(){
+	  service.getHttp("/date/daysBetweenDates/"+$scope.startDate+"/"+$scope.endDate)
+	  .then(function(response) { 		
+  		$scope.daysBetweenDates = response.data.nameDay;
+      }).catch(function(err) {
+      	console.error("Error del servicio consulta los dias entre fechas: ", err);          
+      });
 	};
 	
 	// Cargar data inicial

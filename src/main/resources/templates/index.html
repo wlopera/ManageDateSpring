@@ -29,38 +29,23 @@
 <title>Fechas</title>
 </head>
 <body ng-controller="MyController">
+	<h1>Spring - MVC Boot Rest - AngularJS - Gradle - HTML 5</h1>
+	<hr>
 
-  	<h1>Spring - MVC Boot Rest - AngularJS - Gradle - HTML 5</h1>
-  	<hr>
+	<div class="container">
+		<div class="row">
+			<div class="row col-sm-9 bg-success">
+				<a th:insert="@{/nameDay}"></a>
+			</div>
+		</div>
 
-  <div class="row col-sm-6 bg-success">
-  	<h3>Combos anidados</h3>
-  	<hr>
-  	<div class="col-sm-12">
-			<div class="col-sm-3">
-				Año:
-				<br>
-				<select ng-options="year.value for year in years" ng-model="year" ng-change="initData()"></select>
+		<hr>
+
+		<div class="row">
+			<div class="row col-sm-9 bg-success">
+				<a th:insert="@{/daysBetweenDates}"></a>
 			</div>
-				<div class="col-sm-3">
-				Mes:
-				<br>
-				<select ng-options="month.value for month in months" ng-model="month" ng-change="getDays()" ng-show="showMonth"></select>
-			</div>
-			<div class="col-sm-3">
-				Día:
-				<br>
-				<select ng-options="day.value for day in days" ng-model="day" ng-show="showDay" ng-change="getNameDayByDate()"></select>
-			</div>
-			
-			<div class="col-sm-3">
-				Día de la semana:
-				<br>
-				{{nameDay}}
-			</div>
-			
 		</div>
 	</div>
-	       
 </body>
 </html>
